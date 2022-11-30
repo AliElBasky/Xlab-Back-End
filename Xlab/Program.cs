@@ -1,3 +1,7 @@
+using BL;
+using DAL;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -7,15 +11,24 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
-
-
 #region DataBase Configuring
 var connctionString = builder.Configuration.GetConnectionString("Defualt");
 builder.Services.AddDbContext<SalesContext>(options => options.UseSqlServer(connctionString));
 #endregion
 
 
+#region Services Configuring
+builder.Services.AddScoped<IInvoiceService, InvoiceServices>();
+#endregion
+
+
+
+#region AutoMappper Configuring
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+#endregion
+
+
+var app = builder.Build();
 
 
 // Configure the HTTP request pipeline.

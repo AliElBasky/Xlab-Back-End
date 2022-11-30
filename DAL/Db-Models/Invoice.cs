@@ -1,4 +1,6 @@
-﻿namespace DAL;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DAL;
 
 public class Invoice
 {
@@ -11,6 +13,7 @@ public class Invoice
 
     #region Class Properties
 
+    [Key]
     public string? InvoiceId { get; set; }
     public string? CustomerName { get; set; }
     public DateTime DateTime { get; set; }

@@ -1,4 +1,6 @@
-﻿namespace BL;
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace BL;
 
 public class InvoiceDTO
 {
@@ -10,11 +12,15 @@ public class InvoiceDTO
     #endregion
 
     #region Class Properties
+    [Required]
     public string? InvoiceId { get; set; }
     public string? CustomerName { get; set; }
     public DateTime DateTime { get; set; }
+    [Required]
     public int ItemsCount { get; set; }
+    [Required]
     public double TotalAmount { get; set; }
+    [Required]
     public ICollection<InDetailsDTO> InvoiceDetails { get; set; }
     #endregion
 }

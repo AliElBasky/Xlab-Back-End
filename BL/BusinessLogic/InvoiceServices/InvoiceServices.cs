@@ -88,7 +88,7 @@ public class InvoiceServices : IInvoiceService
     {
         try
         {
-            var invoice = await GetInvoiceByIdAsync(id);
+            var invoice = await GetInvoiceDetailsAsync(id);
 
             _context.Invoice.Remove(invoice);
             await _context.SaveChangesAsync();

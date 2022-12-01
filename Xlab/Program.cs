@@ -22,9 +22,16 @@ builder.Services.AddScoped<IInvoiceService, InvoiceServices>();
 #endregion
 
 
-
 #region AutoMappper Configuring
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile).Assembly);
+#endregion
+
+
+#region Cors Configuring
+builder.Services.AddCors(c => c.AddPolicy("Defualt", build =>
+  {
+      build.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+  }));
 #endregion
 
 
@@ -37,6 +44,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors("Defualt");
 
 app.UseHttpsRedirection();
 

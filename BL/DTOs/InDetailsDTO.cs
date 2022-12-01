@@ -5,7 +5,6 @@ namespace BL;
 public class InDetailsDTO
 {
     #region Class Properties
-    [Required]
     public string? Item { get; set; }
     [Required]
     public float Price { get; set; }

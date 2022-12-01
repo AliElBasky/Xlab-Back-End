@@ -25,6 +25,11 @@ namespace Xlab.Controllers
         [Route("get")]
         public async Task<IActionResult> GetInvoiceAsync(string id)
         {
+            if (id == null)
+            {
+                return BadRequest("id is required");
+            }
+
             var result = await _invoice.GetInvoiceAsync(id);
             if (result == null)
             {
@@ -38,8 +43,8 @@ namespace Xlab.Controllers
         #region Post Endpoint
 
         [HttpPost]
-        [Route("Add")]
-        public async Task<IActionResult> AddInvoiceAsync(InvoiceDTO model)
+        [Route("add")]
+        public async Task<IActionResult> AddInvoiceAsync([FromBody]InvoiceDTO model)
         {
             if (!ModelState.IsValid)
             {
@@ -64,6 +69,11 @@ namespace Xlab.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdateInvoiceAsync([FromBody] InvoiceDTO model, [FromQuery] string id)
         {
+            if (id != model.InvoiceId)
+            {
+                return BadRequest("Id Not match");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -71,6 +81,7 @@ namespace Xlab.Controllers
 
             var result = await _invoice.UpdateInvoiceAsync(model, id);
 
+            
             if (result == null)
             {
                 return BadRequest("Something went wrong while updating ...");
@@ -87,6 +98,11 @@ namespace Xlab.Controllers
         [Route("Delete")]
         public async Task<IActionResult> DeleteInvoiceAsync(string id)
         {
+            if (id == null)
+            {
+                return BadRequest("id is required");
+            }
+
             var result = await _invoice.DeleteInvoiceAsync(id);
 
             if (!result)

@@ -55,7 +55,7 @@ namespace Xlab.Controllers
 
             if (result == null)
             {
-                return BadRequest("Something went wrong while adding ...");
+                return BadRequest("invoice id is already used .. ");
             }
 
             return StatusCode(201);
@@ -84,7 +84,7 @@ namespace Xlab.Controllers
             
             if (result == null)
             {
-                return BadRequest("Something went wrong while updating ...");
+                return BadRequest("invalid invoice id!");
             }
 
             return Ok(result);

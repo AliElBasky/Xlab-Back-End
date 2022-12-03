@@ -90,6 +90,7 @@ public class InvoiceServices : IInvoiceService
         {
             var invoice = await GetInvoiceDetailsAsync(id);
 
+            _context.Invoice_Details.RemoveRange(invoice.InvoiceDetails);
             _context.Invoice.Remove(invoice);
             await _context.SaveChangesAsync();
             return true;
@@ -102,13 +103,13 @@ public class InvoiceServices : IInvoiceService
     #endregion
 
     #region Helper Methods
-    public async Task<Invoice> GetInvoiceByIdAsync(string id)
+    public async Task<Invoice?> GetInvoiceByIdAsync(string id)
     {
         var result = await _context.Invoice.FirstOrDefaultAsync(i => i.InvoiceId == id);
         return result;
     }
 
-    public async Task<Invoice> GetInvoiceDetailsAsync(string id)
+    public async Task<Invoice?> GetInvoiceDetailsAsync(string id)
     {
         var result = await _context.Invoice.Where(i => i.InvoiceId == id).Include(d => d.InvoiceDetails).FirstOrDefaultAsync();
         return result;

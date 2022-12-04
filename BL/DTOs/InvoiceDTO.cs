@@ -12,7 +12,6 @@ public class InvoiceDTO
     #endregion
 
     #region Class Properties
-    [Required]
     public string? InvoiceId { get; set; }
     public string? CustomerName { get; set; }
     public DateTime DateTime { get; set; }

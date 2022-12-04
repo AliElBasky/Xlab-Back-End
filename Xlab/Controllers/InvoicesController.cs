@@ -25,7 +25,7 @@ namespace Xlab.Controllers
         [Route("get")]
         public async Task<IActionResult> GetInvoiceAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest("id is required");
             }
@@ -46,6 +46,11 @@ namespace Xlab.Controllers
         [Route("add")]
         public async Task<IActionResult> AddInvoiceAsync([FromBody]InvoiceDTO model)
         {
+
+            if (string.IsNullOrWhiteSpace(model.InvoiceId))
+            {
+                return BadRequest("id is required ..");
+            }
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -69,6 +74,11 @@ namespace Xlab.Controllers
         [Route("update")]
         public async Task<IActionResult> UpdateInvoiceAsync([FromBody] InvoiceDTO model, [FromQuery] string id)
         {
+            if (string.IsNullOrWhiteSpace(id))
+            {
+                return BadRequest("id is required ..");
+            }
+
             if (id != model.InvoiceId)
             {
                 return BadRequest("Id Not match");
@@ -98,7 +108,7 @@ namespace Xlab.Controllers
         [Route("Delete")]
         public async Task<IActionResult> DeleteInvoiceAsync(string id)
         {
-            if (id == null)
+            if (string.IsNullOrWhiteSpace(id))
             {
                 return BadRequest("id is required");
             }
